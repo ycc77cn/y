@@ -3,52 +3,143 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>域名已更换</title>
-  <!-- 引入Tailwind CSS -->
+  <title>域名已更换 | 请访问新地址</title>
+  <!-- 引入外部资源 -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- 引入Font Awesome -->
   <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
   
-  <!-- 配置Tailwind自定义主题 -->
+  <!-- Tailwind 配置 -->
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            primary: '#6C5CE7',    // 主色调：紫色
-            secondary: '#00F5D4',  // 辅助色：青色
-            dark: '#121212',       // 深色背景
+            neon: {
+              pink: '#FF2A6D',
+              blue: '#05D9E8',
+              purple: '#D300C5',
+              yellow: '#FFF300'
+            },
+            dark: '#050A1C'
           },
           fontFamily: {
-            inter: ['Inter', 'system-ui', 'sans-serif'],
-          },
-        },
+            cyber: ['Orbitron', 'Inter', 'sans-serif']
+          }
+        }
       }
     }
   </script>
   
+  <!-- 自定义样式 -->
   <style type="text/tailwindcss">
     @layer utilities {
-      .text-shadow-glow {
-        text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor;
+      /* 霓虹发光效果 */
+      .neon-glow {
+        box-shadow: 0 0 5px currentColor,
+                    0 0 10px currentColor,
+                    0 0 15px currentColor,
+                    0 0 20px currentColor;
       }
-      .bg-grid {
+      
+      .text-neon {
+        text-shadow: 0 0 5px currentColor,
+                     0 0 10px currentColor,
+                     0 0 15px currentColor,
+                     0 0 20px currentColor;
+      }
+      
+      /* 背景网格 */
+      .grid-bg {
         background-image: 
-          linear-gradient(rgba(108, 92, 231, 0.1) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(108, 92, 231, 0.1) 1px, transparent 1px);
-        background-size: 20px 20px;
+          linear-gradient(rgba(5, 217, 232, 0.1) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(5, 217, 232, 0.1) 1px, transparent 1px);
+        background-size: 30px 30px;
       }
-      .animate-float {
-        animation: float 6s ease-in-out infinite;
+      
+      /* 扫描线效果 */
+      .scanline::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 5px;
+        background: rgba(255, 255, 255, 0.1);
+        animation: scan 6s linear infinite;
       }
-      .animate-pulse-slow {
-        animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      
+      /* 光流效果 */
+      .light-flow {
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .light-flow::after {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(
+          to right,
+          rgba(255, 42, 109, 0) 0%,
+          rgba(255, 42, 109, 0.3) 50%,
+          rgba(255, 42, 109, 0) 100%
+        );
+        transform: rotate(30deg);
+        animation: lightFlow 3s infinite;
       }
     }
     
+    /* 动画定义 */
+    @keyframes scan {
+      0% { top: 0; }
+      100% { top: 100%; }
+    }
+    
+    @keyframes lightFlow {
+      0% { transform: translateX(-100%) rotate(30deg); }
+      100% { transform: translateX(100%) rotate(30deg); }
+    }
+    
     @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-20px); }
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-25px) rotate(5deg); }
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 0.8; }
+      50% { opacity: 0.4; }
+    }
+    
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    
+    @keyframes glitch {
+      0%, 100% { transform: translate(0); }
+      20% { transform: translate(-5px, 5px); }
+      40% { transform: translate(-5px, -5px); }
+      60% { transform: translate(5px, 5px); }
+      80% { transform: translate(5px, -5px); }
+    }
+    
+    /* 3D 空间设置 */
+    .perspective {
+      perspective: 1000px;
+    }
+    
+    .preserve-3d {
+      transform-style: preserve-3d;
+    }
+    
+    .rotate-y {
+      animation: rotateY 15s linear infinite;
+    }
+    
+    @keyframes rotateY {
+      from { transform: rotateY(0deg); }
+      to { transform: rotateY(360deg); }
     }
     
     /* 粒子背景容器 */
@@ -60,36 +151,53 @@
       left: 0;
       z-index: 0;
     }
+    
+    /* 导入字体 */
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
   </style>
 </head>
-<body class="font-inter bg-dark text-white min-h-screen flex items-center justify-center overflow-hidden relative bg-grid">
+<body class="font-cyber bg-dark text-white min-h-screen overflow-hidden relative grid-bg scanline">
   <!-- 粒子背景 -->
   <div id="particles-js"></div>
   
+  <!-- 装饰性几何图形 -->
+  <div class="absolute top-10 left-10 w-32 h-32 border-2 border-neon-blue rounded-full opacity-30 animate-pulse"></div>
+  <div class="absolute bottom-20 right-10 w-40 h-40 border-2 border-neon-pink rounded-full opacity-30 animate-pulse" style="animation-delay: 1s;"></div>
+  <div class="absolute top-1/3 right-1/4 w-24 h-24 border-2 border-neon-purple rounded-full opacity-30 animate-pulse" style="animation-delay: 2s;"></div>
+  
   <!-- 主内容容器 -->
-  <div class="container mx-auto px-4 z-10 text-center">
-    <!-- 链接图标 -->
-    <div class="mb-10 animate-float">
-      <i class="fa fa-link text-[120px] text-primary text-shadow-glow"></i>
+  <div class="container mx-auto px-4 z-10 h-screen flex flex-col items-center justify-center relative">
+    <!-- 3D 旋转图标 -->
+    <div class="perspective mb-12">
+      <div class="w-32 h-32 md:w-48 md:h-48 preserve-3d rotate-y flex items-center justify-center">
+        <i class="fa fa-link text-[6rem] md:text-[8rem] text-neon-blue text-neon"></i>
+      </div>
     </div>
     
-    <!-- 主标题 -->
-    <h1 class="text-[clamp(2rem,6vw,4.5rem)] font-bold mb-8 opacity-0 transform translate-y-10 transition-all duration-1000 ease-out" id="main-title">
-      此域名已不再使用
+    <!-- 主标题（带故障动画效果） -->
+    <h1 class="text-[clamp(1.8rem,8vw,5rem)] font-extrabold mb-8 text-center relative opacity-0 transform translate-y-10 transition-all duration-1000 ease-out" id="main-title">
+      <span class="relative z-10">此域名已不再使用</span>
+      <span class="absolute inset-0 bg-neon-pink/20 blur-sm"></span>
     </h1>
     
-    <!-- 新网址区域 -->
+    <!-- 新网址区域（带光流动画） -->
     <div class="mb-12 opacity-0 transform translate-y-10 transition-all duration-1000 ease-out delay-300" id="new-url">
-      <p class="text-[clamp(1.2rem,3vw,1.8rem)] mb-6 text-gray-300">请访问新网址：</p>
-      <a href="https://ycc77.cn" target="_blank" class="inline-block bg-gradient-to-r from-primary to-secondary text-dark font-bold py-4 px-10 rounded-full text-[clamp(1.5rem,5vw,3rem)] hover:scale-105 hover:shadow-lg hover:shadow-primary/40 transition-all duration-300 text-shadow-glow">
+      <p class="text-[clamp(1.2rem,3vw,1.8rem)] mb-6 text-gray-300 relative z-10">请访问新网址：</p>
+      <a href="https://ycc77.cn" target="_blank" class="inline-block relative z-10 light-flow bg-gradient-to-r from-neon-blue via-neon-purple to-neon-pink text-white font-bold py-4 px-12 rounded-full text-[clamp(1.5rem,6vw,3.5rem)] hover:scale-105 transition-all duration-300 text-neon border border-white/20">
         ycc77.cn
       </a>
     </div>
     
     <!-- 自动跳转提示 -->
-    <p class="text-gray-400 opacity-0 transform translate-y-10 transition-all duration-1000 ease-out delay-600" id="redirect-info">
-      您将在 <span id="countdown" class="text-secondary font-bold text-xl">10</span> 秒后自动跳转
-    </p>
+    <div class="opacity-0 transform translate-y-10 transition-all duration-1000 ease-out delay-600 flex items-center gap-3" id="redirect-info">
+      <i class="fa fa-clock-o text-neon-yellow text-2xl"></i>
+      <p class="text-gray-300 text-lg md:text-xl">
+        您将在 <span id="countdown" class="text-neon-yellow font-bold text-2xl mx-2">10</span> 秒后自动跳转
+      </p>
+    </div>
+    
+    <!-- 底部装饰线条 -->
+    <div class="absolute bottom-10 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-neon-blue to-transparent w-3/4 mx-auto"></div>
   </div>
   
   <!-- 粒子效果库 -->
@@ -98,34 +206,49 @@
   <script>
     // 页面加载完成后执行
     document.addEventListener('DOMContentLoaded', function() {
-      // 初始化粒子背景
+      // 初始化增强版粒子背景
       particlesJS('particles-js', {
         "particles": {
           "number": {
-            "value": 80,
+            "value": 100,
             "density": {
               "enable": true,
               "value_area": 800
             }
           },
           "color": {
-            "value": "#6C5CE7"
+            "value": ["#FF2A6D", "#05D9E8", "#D300C5", "#FFF300"]
           },
           "shape": {
-            "type": "circle"
+            "type": ["circle", "polygon"],
+            "polygon": {
+              "nb_sides": 5
+            }
           },
           "opacity": {
             "value": 0.5,
-            "random": true
+            "random": true,
+            "anim": {
+              "enable": true,
+              "speed": 1,
+              "opacity_min": 0.1,
+              "sync": false
+            }
           },
           "size": {
             "value": 3,
-            "random": true
+            "random": true,
+            "anim": {
+              "enable": true,
+              "speed": 2,
+              "size_min": 0.1,
+              "sync": false
+            }
           },
           "line_linked": {
             "enable": true,
             "distance": 150,
-            "color": "#6C5CE7",
+            "color": "#05D9E8",
             "opacity": 0.2,
             "width": 1
           },
@@ -136,7 +259,12 @@
             "random": true,
             "straight": false,
             "out_mode": "out",
-            "bounce": false
+            "bounce": false,
+            "attract": {
+              "enable": true,
+              "rotateX": 600,
+              "rotateY": 1200
+            }
           }
         },
         "interactivity": {
@@ -160,7 +288,7 @@
               }
             },
             "push": {
-              "particles_nb": 4
+              "particles_nb": 5
             }
           }
         },
@@ -169,7 +297,18 @@
       
       // 元素渐入动画
       setTimeout(() => {
-        document.getElementById('main-title').classList.remove('opacity-0', 'translate-y-10');
+        const title = document.getElementById('main-title');
+        title.classList.remove('opacity-0', 'translate-y-10');
+        
+        // 随机添加故障效果
+        setInterval(() => {
+          if (Math.random() > 0.7) {
+            title.style.animation = 'glitch 0.3s';
+            setTimeout(() => {
+              title.style.animation = 'none';
+            }, 300);
+          }
+        }, 5000);
       }, 300);
       
       setTimeout(() => {
@@ -188,12 +327,46 @@
         countdown--;
         countdownElement.textContent = countdown;
         
+        // 倒计时数字动画效果
+        countdownElement.classList.add('scale-125');
+        setTimeout(() => {
+          countdownElement.classList.remove('scale-125');
+        }, 300);
+        
         if (countdown <= 0) {
           clearInterval(countdownInterval);
           window.location.href = 'https://ycc77.cn';
         }
       }, 1000);
+      
+      // 鼠标移动光效
+      document.addEventListener('mousemove', (e) => {
+        const x = e.clientX;
+        const y = e.clientY;
+        
+        // 创建临时光效点
+        const light = document.createElement('div');
+        light.style.position = 'absolute';
+        light.style.width = '100px';
+        light.style.height = '100px';
+        light.style.borderRadius = '50%';
+        light.style.background = 'radial-gradient(circle, rgba(5,217,232,0.3) 0%, rgba(5,217,232,0) 70%)';
+        light.style.transform = 'translate(-50%, -50%)';
+        light.style.left = `${x}px`;
+        light.style.top = `${y}px`;
+        light.style.pointerEvents = 'none';
+        light.style.zIndex = '0';
+        light.style.animation = 'pulse 1s forwards';
+        
+        document.body.appendChild(light);
+        
+        // 移除临时元素
+        setTimeout(() => {
+          light.remove();
+        }, 1000);
+      });
     });
   </script>
 </body>
 </html>
+    
