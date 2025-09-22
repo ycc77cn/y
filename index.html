@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>域名已更换</title>
+  <!-- 引入Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 引入Font Awesome -->
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  
+  <!-- 配置Tailwind自定义主题 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#6C5CE7',    // 主色调：紫色
+            secondary: '#00F5D4',  // 辅助色：青色
+            dark: '#121212',       // 深色背景
+          },
+          fontFamily: {
+            inter: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      }
+    }
+  </script>
+  
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .text-shadow-glow {
+        text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor;
+      }
+      .bg-grid {
+        background-image: 
+          linear-gradient(rgba(108, 92, 231, 0.1) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(108, 92, 231, 0.1) 1px, transparent 1px);
+        background-size: 20px 20px;
+      }
+      .animate-float {
+        animation: float 6s ease-in-out infinite;
+      }
+      .animate-pulse-slow {
+        animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+    
+    /* 粒子背景容器 */
+    #particles-js {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+  </style>
+</head>
+<body class="font-inter bg-dark text-white min-h-screen flex items-center justify-center overflow-hidden relative bg-grid">
+  <!-- 粒子背景 -->
+  <div id="particles-js"></div>
+  
+  <!-- 主内容容器 -->
+  <div class="container mx-auto px-4 z-10 text-center">
+    <!-- 链接图标 -->
+    <div class="mb-10 animate-float">
+      <i class="fa fa-link text-[120px] text-primary text-shadow-glow"></i>
+    </div>
+    
+    <!-- 主标题 -->
+    <h1 class="text-[clamp(2rem,6vw,4.5rem)] font-bold mb-8 opacity-0 transform translate-y-10 transition-all duration-1000 ease-out" id="main-title">
+      此域名已不再使用
+    </h1>
+    
+    <!-- 新网址区域 -->
+    <div class="mb-12 opacity-0 transform translate-y-10 transition-all duration-1000 ease-out delay-300" id="new-url">
+      <p class="text-[clamp(1.2rem,3vw,1.8rem)] mb-6 text-gray-300">请访问新网址：</p>
+      <a href="https://ycc77.cn" target="_blank" class="inline-block bg-gradient-to-r from-primary to-secondary text-dark font-bold py-4 px-10 rounded-full text-[clamp(1.5rem,5vw,3rem)] hover:scale-105 hover:shadow-lg hover:shadow-primary/40 transition-all duration-300 text-shadow-glow">
+        ycc77.cn
+      </a>
+    </div>
+    
+    <!-- 自动跳转提示 -->
+    <p class="text-gray-400 opacity-0 transform translate-y-10 transition-all duration-1000 ease-out delay-600" id="redirect-info">
+      您将在 <span id="countdown" class="text-secondary font-bold text-xl">10</span> 秒后自动跳转
+    </p>
+  </div>
+  
+  <!-- 粒子效果库 -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  
+  <script>
+    // 页面加载完成后执行
+    document.addEventListener('DOMContentLoaded', function() {
+      // 初始化粒子背景
+      particlesJS('particles-js', {
+        "particles": {
+          "number": {
+            "value": 80,
+            "density": {
+              "enable": true,
+              "value_area": 800
+            }
+          },
+          "color": {
+            "value": "#6C5CE7"
+          },
+          "shape": {
+            "type": "circle"
+          },
+          "opacity": {
+            "value": 0.5,
+            "random": true
+          },
+          "size": {
+            "value": 3,
+            "random": true
+          },
+          "line_linked": {
+            "enable": true,
+            "distance": 150,
+            "color": "#6C5CE7",
+            "opacity": 0.2,
+            "width": 1
+          },
+          "move": {
+            "enable": true,
+            "speed": 1,
+            "direction": "none",
+            "random": true,
+            "straight": false,
+            "out_mode": "out",
+            "bounce": false
+          }
+        },
+        "interactivity": {
+          "detect_on": "canvas",
+          "events": {
+            "onhover": {
+              "enable": true,
+              "mode": "grab"
+            },
+            "onclick": {
+              "enable": true,
+              "mode": "push"
+            },
+            "resize": true
+          },
+          "modes": {
+            "grab": {
+              "distance": 140,
+              "line_linked": {
+                "opacity": 0.8
+              }
+            },
+            "push": {
+              "particles_nb": 4
+            }
+          }
+        },
+        "retina_detect": true
+      });
+      
+      // 元素渐入动画
+      setTimeout(() => {
+        document.getElementById('main-title').classList.remove('opacity-0', 'translate-y-10');
+      }, 300);
+      
+      setTimeout(() => {
+        document.getElementById('new-url').classList.remove('opacity-0', 'translate-y-10');
+      }, 600);
+      
+      setTimeout(() => {
+        document.getElementById('redirect-info').classList.remove('opacity-0', 'translate-y-10');
+      }, 900);
+      
+      // 倒计时与自动跳转功能
+      let countdown = 10;
+      const countdownElement = document.getElementById('countdown');
+      
+      const countdownInterval = setInterval(() => {
+        countdown--;
+        countdownElement.textContent = countdown;
+        
+        if (countdown <= 0) {
+          clearInterval(countdownInterval);
+          window.location.href = 'https://ycc77.cn';
+        }
+      }, 1000);
+    });
+  </script>
+</body>
+</html>
