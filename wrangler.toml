@@ -1,0 +1,13 @@
+name = "navsphere"
+compatibility_date = "2024-11-11"
+compatibility_flags = ["nodejs_compat"]
+pages_build_output_dir = ".vercel/output/static"
+
+[env.production.vars]
+GITHUB_CLIENT_ID = "Ov23liNx1FOMQpYuEIHg"
+GITHUB_OWNER = "ycc77cn"
+GITHUB_REPO = "NavSphere"
+GITHUB_BRANCH = "main"
+NEXTAUTH_URL = "https://ycc77.pages.dev/api/auth"
+NEXT_PUBLIC_API_URL="https://ycc77.pages.dev/"
+
